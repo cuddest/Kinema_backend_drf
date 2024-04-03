@@ -1,0 +1,7 @@
+#files to ignore
+kinema/db.sqlite3
+Kinema/__pycache__
+Kinema/migrations
+Kinema/.env
+
+
