@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "cinema",
     "review",
     "merch",
+    "movie_showtime",
 ]
 
 MIDDLEWARE = [
@@ -86,8 +87,16 @@ WSGI_APPLICATION = "kinema.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = os.getenv("DATABASES")
+DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("ENGINE"),
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
