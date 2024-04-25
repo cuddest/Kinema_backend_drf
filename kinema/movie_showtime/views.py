@@ -78,8 +78,8 @@ class ALL_SHOW_TIMES(generics.ListAPIView):
 
 
 class STByMovieView(generics.ListAPIView):
-    serializer_class = class MerchByMovieView(generics.ListAPIView):
-    serializer_class = MerchSerializer
+    queryset = Showtime.objects.all()
+    serializer_class = Movie_Showtime_Serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
@@ -88,8 +88,8 @@ class STByMovieView(generics.ListAPIView):
         return item.objects.filter(movie=movie_id)
 
 class STByTheatreView(generics.ListAPIView):
-    serializer_class = class MerchByMovieView(generics.ListAPIView):
-    serializer_class = MerchSerializer
+    queryset = Showtime.objects.all()
+    serializer_class = Movie_Showtime_Serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "review",
     "merch",
     "movie_showtime",
+    "event_showtime",
 ]
 
 MIDDLEWARE = [

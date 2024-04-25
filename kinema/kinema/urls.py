@@ -26,4 +26,7 @@ urlpatterns = [
     path("review/", include("review.urls")),
     path("cinema/", include("cinema.urls")),
     path("merch/", include("merch.urls")),
+    path("event_showtime/", include("event_showtime.urls")),
+    path("movie_showtime/", include("movie_showtime.urls")),
+
 ]
