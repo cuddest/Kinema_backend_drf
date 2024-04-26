@@ -1,6 +1,6 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
-from .models import movie_reservation
-from .serializer import movie_reservation_Serializer
+from .models import event_reservation
+from .serializer import event_reservation_serializer
 from rest_framework import generics, permissions, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
@@ -8,20 +8,20 @@ from rest_framework.permissions import IsAuthenticated
 import requests
 
 
-class RVCreateView(generics.CreateAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class ERVCreateView(generics.CreateAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def upload_qrcode_to_cloudinary():
         counter = 0
-        magic_word="movie"+counter 
+        magic_word="event"+counter 
         QrCode_url = (
             "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={magic_word}"
         )
         response = requests.get(
-            "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={counter}"
+            "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={magic_word}"
         )
         if response.status_code == 200:
             cloudinary_url = os.getenv("CLOUDINARY_URL")
@@ -48,46 +48,46 @@ class RVCreateView(generics.CreateAPIView):
             instance.save()
 
 
-class RVUpdateView(generics.UpdateAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class ERVUpdateView(generics.UpdateAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
 
-class RVDeleteView(generics.DestroyAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class ERVDeleteView(generics.DestroyAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, *args, **kwargs):
-        RV_id = request.data.get("id")
-        RV_movie = request.data.get("movie")
-        if RV_id:
+        ERV_id = request.data.get("id")
+        ERV_event = request.data.get("movie")
+        if ERV_id:
             try:
-                theRV = movie_reservation.objects.get(id=RV_id)
-                theRV.delete()
+                theERV = event_reservation.objects.get(id=ERV_id)
+                theERV.delete()
                 return Response(
-                    {"message": "RV deleted successfully"},
+                    {"message": "ERV deleted successfully"},
                     status=status.HTTP_200_OK,
                 )
-            except movie_reservation.DoesNotExist:
+            except event_reservation.DoesNotExist:
                 return Response(
-                    {"message": "RV not found"},
+                    {"message": "ERV not found"},
                     status=status.HTTP_404_NOT_FOUND,
                 )
-        elif RV_movie:
+        elif ERV_event:
             try:
-                thest = movie_reservation.objects.get(title=RV_movie)
-                thest.delete()
+                theERV = event_reservation.objects.get(title=st_movie)
+                theERV.delete()
                 return Response(
-                    {"message": "RV deleted successfully"},
+                    {"message": "ERV deleted successfully"},
                     status=status.HTTP_200_OK,
                 )
-            except movie_reservation.DoesNotExist:
+            except event_reservation.DoesNotExist:
                 return Response(
-                    {"message": "RV not found"},
+                    {"message": "ERV not found"},
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
@@ -97,38 +97,38 @@ class RVDeleteView(generics.DestroyAPIView):
             )
 
 
-class RVDetailView(generics.RetrieveAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class ERVDetailView(generics.RetrieveAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
 
-class ALL_RVS(generics.ListAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class E_ALL_RVS(generics.ListAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
 
-class RVByMovieView(generics.ListAPIView):
-    queryset = movie_reservation.objects.all()
+class ERVByMovieView(generics.ListAPIView):
+    queryset = event_reservation.objects.all()
 
-    serializer_class = movie_reservation_Serializer
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         movie_id = self.kwargs.get("movie_id")
-        return movie_reservation.objects.filter(movie=movie_id)
+        return event_reservation.objects.filter(movie=movie_id)
 
 
-class RVByUSERView(generics.ListAPIView):
-    queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+class ERVByUSERView(generics.ListAPIView):
+    queryset = event_reservation.objects.all()
+    serializer_class = event_reservation_serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.kwargs.get("user_id")
-        return movie_reservation.objects.filter(User=user_id)
+        return event_reservation.objects.filter(User=user_id)

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "movie_showtime",
     "event_showtime",
     "movie_reservation",
+    "event_reservation",
 ]
 
 MIDDLEWARE = [
