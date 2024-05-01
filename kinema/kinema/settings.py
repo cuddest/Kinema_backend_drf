@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "event_showtime",
     "movie_reservation",
     "event_reservation",
-    "notifs",
+
 ]
 
 MIDDLEWARE = [
@@ -93,14 +93,17 @@ WSGI_APPLICATION = "kinema.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+env = os.getenv("ENVIRONMENT")
+
+
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("ENGINE"),
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres.lojrzysiwwlydcfrkics",
+        "PASSWORD": "AyoubMoh1982",
+        "HOST": "aws-0-eu-central-1.pooler.supabase.com",
+        "PORT": "5432",
     }
 }
 

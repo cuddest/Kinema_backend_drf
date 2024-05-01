@@ -30,5 +30,5 @@ urlpatterns = [
     path("movie_showtime/", include("movie_showtime.urls")),
     path("movie_reservation/", include("movie_reservation.urls")),
     path("event_reservation/", include("event_reservation.urls")),
-    path("notifs/", include("notifs.urls")),
+
 ]
