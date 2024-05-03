@@ -20,6 +20,7 @@ class User(AbstractUser):
     is_superuser = models.BooleanField(default=False)
     Fidelity_Points = models.IntegerField(default=0)
     password = models.CharField(max_length=500)
+    pin = models.IntegerField(default=0)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [
         "Full_Name",

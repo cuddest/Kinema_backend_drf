@@ -37,8 +37,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
-    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -57,7 +55,7 @@ INSTALLED_APPS = [
     "event_showtime",
     "movie_reservation",
     "event_reservation",
-
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -68,7 +66,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
+CORS_ALLOWED_ORIGINS = ["http://*", "https://*"]
+
 
 ROOT_URLCONF = "kinema.urls"
 
@@ -88,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "kinema.wsgi.application"
+ASGI_APPLICATION = "kinema.wsgi.application"
 
 
 # Database
