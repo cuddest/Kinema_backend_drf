@@ -1,0 +1,3008 @@
+openapi: 3.0.3
+info:
+  title: Kinema API
+  version: 1.0.0
+  description: API for the Kinema Cinema Booking Application
+  contact:
+    name: Kinema Team
+    email: A_TOUATI@ESTIN.DZ
+paths:
+  /cinema/create/:
+    post:
+      operationId: cinema_create_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - cinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/cinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/cinema'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cinema'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/cinema'
+          description: ''
+  /cinema/delete/{id}/:
+    delete:
+      operationId: cinema_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cinema
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /cinema/detail/{id}/:
+    get:
+      operationId: cinema_detail_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cinema
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cinema'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/cinema'
+          description: ''
+  /cinema/list/:
+    get:
+      operationId: cinema_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - cinema
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedcinemaList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedcinemaList'
+          description: ''
+  /cinema/update/{id}/:
+    put:
+      operationId: cinema_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/cinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/cinema'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cinema'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/cinema'
+          description: ''
+    patch:
+      operationId: cinema_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - cinema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patchedcinema'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patchedcinema'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Patchedcinema'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cinema'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/cinema'
+          description: ''
+  /cinephile/login:
+    post:
+      operationId: cinephile_login_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - cinephile
+      responses:
+        '200':
+          description: No response body
+  /cinephile/logout:
+    post:
+      operationId: cinephile_logout_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - cinephile
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /cinephile/register:
+    post:
+      operationId: cinephile_register_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - cinephile
+      responses:
+        '200':
+          description: No response body
+  /cinephile/user:
+    get:
+      operationId: cinephile_user_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - cinephile
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /event_reservation/add:
+    post:
+      operationId: event_reservation_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - event_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+          description: ''
+  /event_reservation/delete/{id}:
+    delete:
+      operationId: event_reservation_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /event_reservation/details/{id}:
+    get:
+      operationId: event_reservation_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+          description: ''
+  /event_reservation/list:
+    get:
+      operationId: event_reservation_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - event_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+          description: ''
+  /event_reservation/movie/{movie_id}:
+    get:
+      operationId: event_reservation_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - event_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+          description: ''
+  /event_reservation/theatre/{theatre_id}:
+    get:
+      operationId: event_reservation_theatre_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: theatre_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedevent_reservation_serializerList'
+          description: ''
+  /event_reservation/update/{id}:
+    put:
+      operationId: event_reservation_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/event_reservation_serializer'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+          description: ''
+    patch:
+      operationId: event_reservation_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patchedevent_reservation_serializer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patchedevent_reservation_serializer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Patchedevent_reservation_serializer'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/event_reservation_serializer'
+          description: ''
+  /event_showtime/add:
+    post:
+      operationId: event_showtime_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - event_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+          description: ''
+  /event_showtime/delete/{id}:
+    delete:
+      operationId: event_showtime_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /event_showtime/details/{id}:
+    get:
+      operationId: event_showtime_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+          description: ''
+  /event_showtime/list:
+    get:
+      operationId: event_showtime_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - event_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+          description: ''
+  /event_showtime/movie/{movie_id}:
+    get:
+      operationId: event_showtime_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - event_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+          description: ''
+  /event_showtime/theatre/{theatre_id}:
+    get:
+      operationId: event_showtime_theatre_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: theatre_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedEvent_Showtime_List'
+          description: ''
+  /event_showtime/update/{id}:
+    put:
+      operationId: event_showtime_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event_Showtime_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+          description: ''
+    patch:
+      operationId: event_showtime_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - event_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent_Showtime_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event_Showtime_'
+          description: ''
+  /events/add:
+    post:
+      operationId: events_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+  /events/delete/{id}:
+    delete:
+      operationId: events_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /events/details/{id}:
+    get:
+      operationId: events_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+  /events/list:
+    get:
+      operationId: events_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - events
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEventList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedEventList'
+          description: ''
+  /events/update/{id}:
+    put:
+      operationId: events_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Event'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Event'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+    patch:
+      operationId: events_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEvent'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Event'
+          description: ''
+  /merch/add:
+    post:
+      operationId: merch_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - merch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Merch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Merch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Merch'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merch'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Merch'
+          description: ''
+  /merch/delete/{id}:
+    delete:
+      operationId: merch_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - merch
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /merch/details/{id}:
+    get:
+      operationId: merch_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - merch
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merch'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Merch'
+          description: ''
+  /merch/list:
+    get:
+      operationId: merch_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - merch
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMerchList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMerchList'
+          description: ''
+  /merch/movie/{movie_id}:
+    get:
+      operationId: merch_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - merch
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMerchList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMerchList'
+          description: ''
+  /merch/update/{id}:
+    put:
+      operationId: merch_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - merch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Merch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Merch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Merch'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merch'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Merch'
+          description: ''
+    patch:
+      operationId: merch_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - merch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMerch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMerch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMerch'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merch'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Merch'
+          description: ''
+  /movie_reservation/add:
+    post:
+      operationId: movie_reservation_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - movie_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+          description: ''
+  /movie_reservation/delete/{id}:
+    delete:
+      operationId: movie_reservation_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /movie_reservation/details/{id}:
+    get:
+      operationId: movie_reservation_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+          description: ''
+  /movie_reservation/list:
+    get:
+      operationId: movie_reservation_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movie_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+          description: ''
+  /movie_reservation/movie/{movie_id}:
+    get:
+      operationId: movie_reservation_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movie_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+          description: ''
+  /movie_reservation/theatre/{theatre_id}:
+    get:
+      operationId: movie_reservation_theatre_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: theatre_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_reservation
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Paginatedmovie_reservation_List'
+          description: ''
+  /movie_reservation/update/{id}:
+    put:
+      operationId: movie_reservation_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/movie_reservation_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+          description: ''
+    patch:
+      operationId: movie_reservation_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patchedmovie_reservation_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patchedmovie_reservation_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Patchedmovie_reservation_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/movie_reservation_'
+          description: ''
+  /movie_showtime/add:
+    post:
+      operationId: movie_showtime_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - movie_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+          description: ''
+  /movie_showtime/delete/{id}:
+    delete:
+      operationId: movie_showtime_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /movie_showtime/details/{id}:
+    get:
+      operationId: movie_showtime_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+          description: ''
+  /movie_showtime/list:
+    get:
+      operationId: movie_showtime_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movie_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+          description: ''
+  /movie_showtime/movie/{movie_id}:
+    get:
+      operationId: movie_showtime_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movie_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+          description: ''
+  /movie_showtime/theatre/{theatre_id}:
+    get:
+      operationId: movie_showtime_theatre_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: theatre_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_showtime
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovie_Showtime_List'
+          description: ''
+  /movie_showtime/update/{id}:
+    put:
+      operationId: movie_showtime_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Movie_Showtime_'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+          description: ''
+    patch:
+      operationId: movie_showtime_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movie_showtime
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie_Showtime_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie_Showtime_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMovie_Showtime_'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Movie_Showtime_'
+          description: ''
+  /movies/add/:
+    post:
+      operationId: movies_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - movies
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          description: No response body
+  /movies/delete/:
+    delete:
+      operationId: movies_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - movies
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /movies/details/{id}:
+    get:
+      operationId: movies_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - movies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: ''
+  /movies/list/:
+    get:
+      operationId: movies_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovieList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovieList'
+          description: ''
+  /movies/paginated/:
+    get:
+      operationId: movies_paginated_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - movies
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovieList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedMovieList'
+          description: ''
+  /review/add:
+    post:
+      operationId: review_add_create
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      tags:
+      - review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /review/delete/{id}:
+    delete:
+      operationId: review_delete_destroy
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - review
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /review/details/{id}:
+    get:
+      operationId: review_details_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - review
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /review/list:
+    get:
+      operationId: review_list_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - review
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+  /review/movie/{movie_id}:
+    get:
+      operationId: review_movie_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: movie_id
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - review
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+  /review/update/{id}:
+    put:
+      operationId: review_update_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: review_update_partial_update
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /review/user/{user_id}:
+    get:
+      operationId: review_user_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - html
+          - json
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: user_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - review
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        theme:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        sponsors:
+          type: string
+          maxLength: 100
+        countries:
+          type: string
+          maxLength: 100
+        Description:
+          type: string
+        Poster:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+      required:
+      - Description
+      - countries
+      - end_date
+      - id
+      - name
+      - sponsors
+      - start_date
+      - theme
+    Event_Showtime_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        startdate:
+          type: string
+          format: date-time
+        enddate:
+          type: string
+          format: date-time
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        event:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        cinema:
+          type: integer
+      required:
+      - cinema
+      - enddate
+      - event
+      - id
+      - price
+      - startdate
+      - stock
+    Merch:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+        name:
+          type: string
+          maxLength: 100
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        points_price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        imgurl:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - description
+      - id
+      - movie
+      - name
+      - points_price
+      - price
+      - stock
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        title:
+          type: string
+          maxLength: 100
+        Genre:
+          type: string
+          maxLength: 100
+        Language:
+          type: string
+          maxLength: 100
+        Duration:
+          type: string
+          maxLength: 100
+        ProductionCompanies:
+          type: string
+          maxLength: 100
+        Movie_Cast:
+          type: string
+          maxLength: 1000
+        country:
+          type: string
+          maxLength: 100
+        Description:
+          type: string
+        Category:
+          type: string
+          maxLength: 100
+        Poster:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        Release_Date:
+          type: string
+          format: date
+          nullable: true
+      required:
+      - Category
+      - Description
+      - Duration
+      - Genre
+      - Language
+      - ProductionCompanies
+      - country
+      - id
+      - title
+    Movie_Showtime_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date_time:
+          type: string
+          format: date-time
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        cinema:
+          type: integer
+      required:
+      - cinema
+      - date_time
+      - id
+      - movie
+      - price
+      - stock
+    PaginatedEventList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    PaginatedEvent_Showtime_List:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event_Showtime_'
+    PaginatedMerchList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Merch'
+    PaginatedMovieList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+    PaginatedMovie_Showtime_List:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie_Showtime_'
+    PaginatedReviewList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    PaginatedcinemaList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/cinema'
+    Paginatedevent_reservation_serializerList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/event_reservation_serializer'
+    Paginatedmovie_reservation_List:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/movie_reservation_'
+    PatchedEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        theme:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        sponsors:
+          type: string
+          maxLength: 100
+        countries:
+          type: string
+          maxLength: 100
+        Description:
+          type: string
+        Poster:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+    PatchedEvent_Showtime_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        startdate:
+          type: string
+          format: date-time
+        enddate:
+          type: string
+          format: date-time
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        event:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        cinema:
+          type: integer
+    PatchedMerch:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+        name:
+          type: string
+          maxLength: 100
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        points_price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        imgurl:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+    PatchedMovie_Showtime_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date_time:
+          type: string
+          format: date-time
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        cinema:
+          type: integer
+    PatchedReview:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+        rating:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        user:
+          type: integer
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+    Patchedcinema:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+    Patchedevent_reservation_serializer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        qr_code:
+          type: string
+          format: uri
+          maxLength: 200
+        user:
+          type: integer
+        event:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+    Patchedmovie_reservation_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        qr_code:
+          type: string
+          format: uri
+          maxLength: 200
+        user:
+          type: integer
+        showtime:
+          type: integer
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        description:
+          type: string
+        rating:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        user:
+          type: integer
+        movie:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - created_at
+      - description
+      - id
+      - movie
+      - rating
+      - updated_at
+      - user
+    cinema:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        capacity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - capacity
+      - id
+      - name
+    event_reservation_serializer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        qr_code:
+          type: string
+          format: uri
+          maxLength: 200
+        user:
+          type: integer
+        event:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+      required:
+      - event
+      - id
+      - qr_code
+      - user
+    movie_reservation_:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        qr_code:
+          type: string
+          format: uri
+          maxLength: 200
+        user:
+          type: integer
+        showtime:
+          type: integer
+      required:
+      - id
+      - qr_code
+      - showtime
+      - user
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

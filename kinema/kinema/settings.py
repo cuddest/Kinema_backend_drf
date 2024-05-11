@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     "movie_reservation",
     "event_reservation",
     "corsheaders",
+    "rest_framework_swagger",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -193,4 +195,14 @@ REST_FRAMEWORK = {
     # Pagination settings
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Kinema API",
+    "DESCRIPTION": "API for the Kinema Cinema Booking Application",
+    "VERSION": "1.0.0",
+    "CONTACT": {
+        "name": "Kinema Team",
+        "email": "A_TOUATI@ESTIN.DZ",
+    },
 }
