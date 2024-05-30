@@ -4,17 +4,16 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Movie(models.Model):
-    id = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=10000)
     Release_Date = models.DateField()
-    Genre = models.CharField(max_length=100)
-    Language = models.CharField(max_length=100)
-    Duration = models.CharField(max_length=100)
-    ProductionCompanies = models.CharField(max_length=100)
-    Movie_Cast = models.CharField(default=list, max_length=1000)
-    country = models.CharField(max_length=100)
+    Genre = models.CharField(max_length=10000)
+    Language = models.CharField(max_length=10000)
+    Duration = models.CharField(max_length=10000)
+    ProductionCompanies = models.CharField(max_length=10000)
+    Movie_Cast = models.CharField(default=list, max_length=10000)
+    country = models.CharField(max_length=100000)
     Description = models.TextField()
-    Category = models.CharField(max_length=100)
+    Category = models.CharField(max_length=100000)
     Poster = models.URLField(blank=True, null=True)
     Release_Date = models.DateField(blank=True, null=True)
 
