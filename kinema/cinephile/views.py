@@ -83,3 +83,24 @@ class LogoutView(APIView):
         }  # Include the user's ID in the response
         return response
 
+
+class Fidelity_addU(generics.UpdateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def post(self, request):
+
+        try:
+            username = request.data["username"]
+            new_fidelity_points_change = request.data["fidelity_points_change"]
+            user = User.objects.get(username=username)
+            actual_fidelity_points = user.Fidelity_Points
+            user.Fidelity_Points = actual_fidelity_points + new_fidelity_points_change
+            user.save()
+            return Response(
+                {"message": "fidelity ponits updated"},
+                status=status.HTTP_200_OK,
+            )
+        except user.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)

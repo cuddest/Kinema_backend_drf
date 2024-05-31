@@ -18,7 +18,7 @@ class User(AbstractUser):
     is_customer = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    Fidelity_Points = models.IntegerField(default=0)
+    Fidelity_Points = models.FloatField(default=0)
     password = models.CharField(max_length=500)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = [
@@ -32,6 +32,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.Full_Name
-
-
-
