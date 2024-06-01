@@ -6,7 +6,6 @@ class review(models.Model):
     user = models.ForeignKey("cinephile.User", on_delete=models.CASCADE)
     description = models.TextField()
     rating = models.IntegerField()
-    movie = models.ForeignKey("movies.Movie", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
