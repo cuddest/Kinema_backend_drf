@@ -6,6 +6,7 @@ from movie_showtime.serializer import Movie_Showtime_Serializer
 
 
 class movie_reservation_Serializer(serializers.ModelSerializer):
+    showtime = Movie_Showtime_Serializer()
     class Meta:
         model = movie_reservation
         fields = "__all__"
