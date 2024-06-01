@@ -104,3 +104,10 @@ class Fidelity_addU(generics.UpdateAPIView):
             )
         except user.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class user_update(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
