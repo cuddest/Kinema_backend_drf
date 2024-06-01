@@ -59,9 +59,10 @@ class UserView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
-        username = request.data.get("username")
-        user = User.objects.get(username=username)
+    def get(self, request, id):
+        user = User.objects.get(id=id)
+        if user is None:
+            raise AuthenticationFailed("User not found!")
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
@@ -111,3 +112,29 @@ class user_update(generics.UpdateAPIView):
     serializer_class = UserSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+
+
+class change_password_view(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        user_id = request.data["id"]
+        old_password = request.data["old_password"]
+        new_password = request.data["new_password"]
+        user = User.objects.get(id=user_id)
+
+        if not user.check_password(old_password):
+            return Response(
+                {"message": "Incorrect old password"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user.set_password(new_password)
+        user.save()
+        return Response(
+            {"message": "Password updated"},
+            status=status.HTTP_200_OK,
+        )
