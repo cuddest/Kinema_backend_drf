@@ -1,7 +1,10 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from .models import movie_reservation
 from movie_showtime.models import Showtime
-from .serializer import movie_reservation_Serializer
+from .serializer import (
+    movie_reservation_Serializer,
+    MovieReservationWithShowtimeSerializer,
+)
 from rest_framework import generics, permissions, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
@@ -74,7 +77,7 @@ class RVDetailView(generics.RetrieveAPIView):
 
 class ALL_RVS(generics.ListAPIView):
     queryset = movie_reservation.objects.all()
-    serializer_class = movie_reservation_Serializer
+    serializer_class = MovieReservationWithShowtimeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
