@@ -7,8 +7,8 @@ class event(models.Model):
     name = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
-    sponsors = models.CharField(max_length=100)
-    countries = models.CharField(max_length=100)
+    guests = models.CharField(blank=True, max_length=100)
+    private = models.BooleanField(default=False)
     Description = models.TextField()
     Poster = models.URLField(blank=True, null=True)
 
