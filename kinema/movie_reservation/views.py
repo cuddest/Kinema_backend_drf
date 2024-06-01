@@ -14,39 +14,6 @@ class RVCreateView(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def upload_qrcode_to_cloudinary():
-        counter = 0
-        magic_word="movie"+counter 
-        QrCode_url = (
-            "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={magic_word}"
-        )
-        response = requests.get(
-            "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={counter}"
-        )
-        if response.status_code == 200:
-            cloudinary_url = os.getenv("CLOUDINARY_URL")
-            cloud_name = os.getenv("CLOUD_NAME")
-            api_key = os.getenv("API_KEY_CLOUD")
-            api_secret = os.getenv("API_SECRET")
-            cloudinary.config(
-                cloud_name=cloud_name, api_key=api_key, api_secret=api_secret
-            )
-            upload_result = cloudinary.uploader.upload(image_url)
-            QrCode_url = upload_result.get("secure_url")
-            counter += 1
-            return QrCode_url
-
-        else:
-            print("Error generating QR code", response.status_code)
-            return None
-
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        qr_code = upload_qrcode_to_cloudinary()
-        if qr_code is not None:
-            instance.qrcode = qr_code
-            instance.save()
-
 
 class RVUpdateView(generics.UpdateAPIView):
     queryset = movie_reservation.objects.all()

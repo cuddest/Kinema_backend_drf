@@ -85,7 +85,8 @@ class STByMovieView(generics.ListAPIView):
 
     def get_queryset(self):
         movie_id = self.kwargs.get("movie_id")
-        return item.objects.filter(movie=movie_id)
+        return Showtime.objects.filter(movie=movie_id)
+
 
 class STByTheatreView(generics.ListAPIView):
     queryset = Showtime.objects.all()
@@ -95,4 +96,4 @@ class STByTheatreView(generics.ListAPIView):
 
     def get_queryset(self):
         theatre_id = self.kwargs.get("theatre_id")
-        return item.objects.filter(theatre=theatre_id)
+        return Showtime.objects.filter(cinema=theatre_id)
