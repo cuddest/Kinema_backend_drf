@@ -1,6 +1,9 @@
 from django.views.generic import CreateView, UpdateView, DeleteView
 from .models import Showtime
-from .serializer import Movie_Showtime_Serializer
+from .serializer import (
+    Movie_Showtime_Serializer,
+    Movieshowtimewith_Hall_and_movie_Serializer,
+)
 from rest_framework import generics, permissions, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
@@ -72,9 +75,10 @@ class STDetailView(generics.RetrieveAPIView):
 
 class ALL_SHOW_TIMES(generics.ListAPIView):
     queryset = Showtime.objects.all()
-    serializer_class = Movie_Showtime_Serializer
+    serializer_class = Movieshowtimewith_Hall_and_movie_Serializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
 
 
 class STByMovieView(generics.ListAPIView):

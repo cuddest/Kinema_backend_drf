@@ -4,6 +4,7 @@ from movie_showtime.models import Showtime
 from .serializer import (
     movie_reservation_Serializer,
     MovieReservationWithShowtimeSerializer,
+    ShowtimeWithMovieSerializer,
 )
 from rest_framework import generics, permissions, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -76,18 +77,10 @@ class RVDetailView(generics.RetrieveAPIView):
 
 
 class ALL_RVS(generics.ListAPIView):
-    queryset = movie_reservation.objects.all()
+    queryset = movie_reservation.objects.select_related("showtime__movie").all()
     serializer_class = MovieReservationWithShowtimeSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        reservations = movie_reservation.objects.all()
-        for reservation in reservations:
-            showtime_id = reservation.showtime_id
-            showtime = Showtime.objects.get(id=showtime_id)
-            reservation.showtime = showtime
-        return reservations
 
 
 class RVByMovieView(generics.ListAPIView):

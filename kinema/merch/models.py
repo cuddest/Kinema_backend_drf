@@ -10,6 +10,7 @@ class item(models.Model):
     points_price = models.IntegerField()
     stock = models.IntegerField()
     imgurl = models.URLField(blank=True, null=True)
+    merch_type = models.CharField(blank=True, max_length=100)
 
     def __str__(self):
         return self.name
